@@ -23,7 +23,6 @@ namespace webApiProcessos.Controllers
             {
                 Id = p.Id,
                 Nome = p.ProcessName,
-                Título = p.MainWindowTitle,
                 Memória = p.PrivateMemorySize64
             }).ToList();
 

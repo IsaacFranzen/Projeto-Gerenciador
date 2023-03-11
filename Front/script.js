@@ -11,10 +11,23 @@ function fetchProcessList() {
 fetchProcessList();
 
 function preencherTabela(processos){
-    const divTeste = document.querySelector("#teste");
-    for(let i = 0; i < processos.length; i++){
-        let p = document.createElement("p");
-        p.innerText = processos[i].nome;
-        divTeste.appendChild(p)
-    }   
+    const tabela = document.querySelector("#tabela-tarefas");
+    processos.forEach( processo => {
+
+        const linhaTabela = document.createElement("tr");
+
+        const celulaId = document.createElement("td");
+        celulaId.textContent = processo.id;
+        linhaTabela.appendChild(celulaId);
+
+        const celulaNome = document.createElement("td");
+        celulaNome.textContent = processo.nome;
+        linhaTabela.appendChild(celulaNome);
+
+        const celulaMemoria = document.createElement("td");
+        celulaMemoria.textContent = processo.memória;
+        linhaTabela.appendChild(celulaMemoria);
+
+        tabela.appendChild(linhaTabela);
+    })
 }
