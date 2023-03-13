@@ -1,32 +1,48 @@
 const tabela = document.querySelector("#tabela-tarefas");
 const btnSortNomes = document.querySelector("#sortNomes");
+const btnSortMemo = document.querySelector("#sortMemoria");
+const tbodyEl = document.querySelector("#body-tabela")
 let resultadoApi;
 let resultadoSortedNome;
 let sortedByname = false;
+let sortedByMemo = false;
 
+window.onload = ()=>{
+    let criatbody = document.createElement("tbody");
+}
+   
 function fetchProcessList() {
     fetch("https://localhost:7271/Process")
         .then(response => response.json())
         .then(processos => {
-            console.log(processos)
+            //console.log(processos)
             resultadoApi = processos;
             
-            if(sortedByname === false){
+            if(sortedByname === false && sortedByMemo === false){
                 preencherTabela();
-            }else{
-                resultadoSortedNome = resultadoApi.sort((a,b)=>{
+            }else if(sortedByname === true){
+                 resultadoApi.sort((a,b)=>{
                     if(a.nome < b.nome){
                         return -1;
                     }else{
                         return true
                     }
                 })
-                tabelaSorted();
-            }
-            
+                preencherTabela();
+            }else if(sortedByMemo === true){
+                resultadoApi.sort((a,b)=>{
+                    if(a.memória > b.memória){
+                        return true;
+                    }else{
+                        return -1
+                    }
+                })
+                preencherTabela();
+            }       
         })
         .catch(error => console.log(error));
 }
+
 setInterval(()=>{
     if(sortedByname === false){fetchProcessList();
         }else{
@@ -39,10 +55,9 @@ setInterval(()=>{
 function preencherTabela(){
     let linhasTamanho = tabela.rows.length;
     for (var i = linhasTamanho - 1; i > 0; i--) {
-    tabela.deleteRow(i);}
+    tabela.deleteRow(i);}  
 
-    const tbody = document.createElement("tbody");
-    tabela.appendChild(tbody);
+    tabela.appendChild(tbodyEl);
     resultadoApi.forEach( processo => {
         
         const linhaTabela = document.createElement("tr");
@@ -59,39 +74,29 @@ function preencherTabela(){
         const celulaMemoria = document.createElement("td");
         celulaMemoria.textContent = processo.memória;
         linhaTabela.appendChild(celulaMemoria);
-        tbody.appendChild(linhaTabela);
+        tbodyEl.appendChild(linhaTabela);
         
     })
+    
 }
 
 btnSortNomes.addEventListener("click", ()=>{
-    sortedByname = true;
-    fetchProcessList();
+    if(sortedByname === false){
+        sortedByname = true;    
+        fetchProcessList();
+    }else{
+        sortedByname = false;
+        fetchProcessList();
+    }
+
 })
 
-function tabelaSorted(){
-    let linhasTamanho = tabela.rows.length;
-    for (var i = linhasTamanho - 1; i > 0; i--) {
-    tabela.deleteRow(i);}
+btnSortMemo.addEventListener("click", ()=>{
+    if(sortedByMemo === false){
+        sortedByMemo = true;
+        fetchProcessList();
+    }else{
+        sortedByMemo = false;
+    }
     
-    const tbody = document.createElement("tbody");
-    tabela.appendChild(tbody);
-    resultadoSortedNome.forEach( processo => {
-        
-        const linhaTabela = document.createElement("tr");
-
-        const celulaId = document.createElement("td");
-        celulaId.textContent = processo.id;
-        linhaTabela.appendChild(celulaId);
-
-        const celulaNome = document.createElement("td");
-        celulaNome.classList.add("nome-class")
-        celulaNome.textContent = processo.nome;
-        linhaTabela.appendChild(celulaNome);
-
-        const celulaMemoria = document.createElement("td");
-        celulaMemoria.textContent = processo.memória;
-        linhaTabela.appendChild(celulaMemoria);
-        tbody.appendChild(linhaTabela);
-        
-})}
+})
