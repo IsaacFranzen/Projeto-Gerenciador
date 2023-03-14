@@ -1,8 +1,85 @@
+:root{
+    --azul-principal: #1f547e;
+    --font-color: #ffff;
+    --box-shadow-color: #b5b5b5;
+    --backcolor-page:#dcdcdc;
+    --backcolo-tr:#3c79aa;
+}
+
 * {
     margin: 0;
     padding: 0;
 }
 
+header{
+    color: var(--font-color);
+    background-color: var(--azul-principal);
+    font-family: 'Abel', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 10px 10px 5px var(--box-shadow-color);
+    margin:10px 600px 10px 600px;
+}
 body{
-    background-color: black;
+    background: var(--backcolor-page);
+}
+#btn-containers{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 15px;
+}
+
+.btn-sort{
+    width: 100px;
+    height: 50px;
+    font-family: 'Abel', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 15px;
+    background-color: var(--azul-principal);
+    color: var(--font-color);
+    border: 1px solid ;
+    border-radius: 5px;
+}
+
+.btn-sort:hover{
+    background-color:var(--backcolor-page);
+    color: var(--azul-principal);
+    cursor: pointer;
+    transition: all .3s ease ;
+}
+
+#tabela-container{
+    display: flex;
+    justify-content: center;
+}
+
+#tabela-tarefas{
+    width: 95%;
+}
+
+table,td,th{
+    font-family: 'Abel', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    padding: 5px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+tr:hover{
+    background-color:var(--backcolor-page);
+    color: var(--azul-principal);
+}
+
+th{
+    color: var(--font-color);
+    background-color: #1f547e;
+}
+
+tr{
+    color: var(--font-color);
+    background: var(--backcolo-tr);
 }

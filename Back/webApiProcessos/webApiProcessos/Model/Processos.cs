@@ -6,8 +6,7 @@ namespace webApiProcessos.Model
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public long Memória { get; set; }
+        public long Memoria { get; set; }
         //public double UsoCPUPorcentagem { get; set; }
-
     }
 }

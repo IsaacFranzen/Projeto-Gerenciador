@@ -24,7 +24,7 @@ namespace webApiProcessos.Controllers
             {
                 Id = p.Id,
                 Nome = p.ProcessName,
-                Memória = p.PrivateMemorySize64,
+                Memoria = p.PrivateMemorySize64,
                 //UsoCPUPorcentagem = Math.Round((p.TotalProcessorTime.TotalMilliseconds / Environment.TickCount) * 100, 2)
 
             }).ToList();
