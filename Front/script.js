@@ -1,12 +1,14 @@
 const tabela = document.querySelector('#tabela-tarefas');
 const btnSortNomes = document.querySelector('#sort-nomes');
 const btnSortMemo = document.querySelector('#sort-memoria');
+const btnSortId = document.querySelector('#sort-id');
 const tbodyEl = document.querySelector('#body-tabela');
-const unidadeDeMemoria = 'Kb'
+const unidadeDeMemoria = 'Kb';
 let resultadoApi;
 let resultadoSortedNome;
 let sortedByname = false;
 let sortedByMemo = false;
+let sortedById = false;
 window.onload = () => {
   document.createElement('tbody');
 };
@@ -16,9 +18,9 @@ function fetchProcessList() {
     .then((response) => response.json())
     .then((processos) => {
       resultadoApi = processos;
-      if (sortedByname === false && sortedByMemo === false) {
+      if (sortedByname === false && sortedByMemo === false && sortedById === false) {
         preencherTabela();
-      } else if (sortedByname === true) {
+      } else if (sortedByname === true && sortedByMemo === false && sortedById === false) {
         resultadoApi.sort((a, b) => {
           if (a.nome < b.nome) {
             return -1;
@@ -26,12 +28,17 @@ function fetchProcessList() {
           return true;
         });
         preencherTabela();
-      } else if (sortedByMemo === true) {
+      } else if (sortedByMemo === true && sortedByname === false && sortedById === false) {
         resultadoApi.sort((a, b) => {
           if (a.memória > b.memória) {
             return true;
           }
           return -1;
+        });
+        preencherTabela();
+      }else if (sortedById === true && sortedByMemo === false && sortedByname === false) {
+        resultadoApi.sort((a, b) => {
+          return a.id - b.id;
         });
         preencherTabela();
       }
@@ -74,6 +81,8 @@ function preencherTabela() {
 btnSortNomes.addEventListener('click', () => {
   if (sortedByname === false) {
     sortedByname = true;
+    sortedByMemo = false;
+    sortedById = false;
     fetchProcessList();
   } else {
     sortedByname = false;
@@ -85,8 +94,22 @@ btnSortNomes.addEventListener('click', () => {
 btnSortMemo.addEventListener('click', () => {
   if (sortedByMemo === false) {
     sortedByMemo = true;
+    sortedByname = false;
+    sortedById = false;
     fetchProcessList();
   } else {
     sortedByMemo = false;
+  }
+});
+
+btnSortId.addEventListener('click', () => {
+  if (sortedById === false) {
+    sortedById = true;
+    sortedByname = false;
+    sortedByMemo = false;
+    fetchProcessList();
+  } else {
+    sortedById = false;
+    fetchProcessList();
   }
 });
