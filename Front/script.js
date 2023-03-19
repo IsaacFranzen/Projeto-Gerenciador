@@ -1,6 +1,6 @@
 const tabela = document.querySelector('#tabela-tarefas');
-const btnSortNomes = document.querySelector('#sortNomes');
-const btnSortMemo = document.querySelector('#sortMemoria');
+const btnSortNomes = document.querySelector('#sort-nomes');
+const btnSortMemo = document.querySelector('#sort-memoria');
 const tbodyEl = document.querySelector('#body-tabela');
 const unidadeDeMemoria = 'Kb'
 let resultadoApi;
@@ -8,7 +8,7 @@ let resultadoSortedNome;
 let sortedByname = false;
 let sortedByMemo = false;
 window.onload = () => {
-  const criatbody = document.createElement('tbody');
+  document.createElement('tbody');
 };
 // faz o fetch com a api local que contém os processos atuais do computador
 function fetchProcessList() {
